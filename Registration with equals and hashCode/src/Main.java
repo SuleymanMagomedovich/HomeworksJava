@@ -47,6 +47,7 @@ class User {
         this.name = name;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -61,14 +62,11 @@ class User {
     }
 }
 
-
 public class Main {
 
     static public boolean checkEquals(User[] users, User user) {
         for (int i = 0; i < users.length; i++) {
-
-            if (users[i].equals(user)) {
-//                users[users.length-1] = null;
+            if (users[i] != null && users[i].equals(user)) {
                 return true;
             }
         }
@@ -124,7 +122,6 @@ public class Main {
                 if (isSignIn == false || index == 0) {
                     System.out.println("Не правильно введен логин или пароль!");
                 }
-
 
                 while (isSignIn) {
                     scanner = new Scanner(System.in);
@@ -222,25 +219,31 @@ public class Main {
                     repeadPassword = scanner.nextLine();
                     if (login.trim().isEmpty() || name.trim().isEmpty() || password.trim().isEmpty() || repeadPassword.trim().isEmpty()) {
                         System.out.println("Поля не могут быть пустыми");
+                    } else {
+                        checkingEmpty = false;
                     }
-                    checkingEmpty = false;
                 }
                 if (repeadPassword.equals(password)) {
                     User user = new User(login, password, name);
-                    users[index] = user;
-                    index++;
-                    if (checkEquals(users, user)) {
-                        System.out.println("Такой логин уже имеется");
-                    } else System.out.println("Успешная регистрация");
 
-//    static public boolean checkEquals(User[] users, User user) {
-//        for (int i = 0; i < users.length; i++) {
-//            if (users[i].equals(user)) {
-//                return true;
-//            }
-//        }
-//          return false;
-//    }
+                    if (checkEquals(users, user)) {
+                        System.out.println("Такой логин уже имеется!");
+                        user = null;
+
+                    } else {
+                        System.out.println("Успешная регистрация!");
+                        users[index] = user;
+                        index++;
+                    }
+
+//                    static public boolean checkEquals(User[] users, User user) {
+//                        for (int i = 0; i < users.length; i++) {
+//                            if (users[i] != null && users[i].equals(user)) {
+//                                return true;
+//                            }
+//                        }
+//                        return false;
+//                    }
 
 
 //                    for (int i = 0; i < index; i++) {
